@@ -1,4 +1,4 @@
-name: Build Windows EXE
+name: Build Windows EXE (32-bit)
 
 on:
   push:
@@ -8,11 +8,12 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - uses: actions/checkout@v5
+    - name: Set up Python (32-bit)
+      uses: actions/setup-python@v6
       with:
         python-version: '3.8'
+        architecture: 'x86'
     - name: Install dependencies
       run: |
         pip install pillow pyinstaller
@@ -20,7 +21,7 @@ jobs:
       run: |
         pyinstaller --onefile --windowed --name PhotoDupeFinder photo_dupe.py
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
-        name: PhotoDupeFinder
+        name: PhotoDupeFinder_x86
         path: dist/PhotoDupeFinder.exe
